@@ -1,0 +1,19 @@
+name: CICD using maven and SL lab 
+on: 
+ push: 
+   branches: ["main"]
+ workflow_dispatch: 
+jobs: 
+  buildandDeploy:
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Clone the Repo 
+      uses: actions/checkout@v4 
+    - name: Setup JDK 11 and maven 
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: 'maven'
+    - name: Build with Maven 
+      run: mvn -B package --file pom.xml 
