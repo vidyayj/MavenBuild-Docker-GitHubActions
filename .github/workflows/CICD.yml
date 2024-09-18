@@ -21,8 +21,8 @@ jobs:
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
        host: '13.233.135.136'
-       user: 'nuveuser'
-       pass: 'bnV2ZTEyMzQk'
+       user: 'labuser'
+       pass: 'TnV2ZWxhYnMxMjMk'
        port: 3389
        connect_timeout: 10s
        first_ssh: |
