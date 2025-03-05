@@ -1,0 +1,35 @@
+name: Code build and Deploy
+on: push
+jobs:
+  CICD job:
+    env:
+      imageName: "myjavaapp"
+    runs-on: ubuntu-lates
+    steps:
+      - name: clone the current repository on the runner
+        uses: actions/ checkout@v4
+      - name: Setup Java17 and maven
+        uses: actions/ checkout@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+      - name: Build with maven
+        run: mvn package
+      - name: Installdocker
+        uses: docker/setup-docker-actions@v4
+      - name: login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+         username: ${{secrets.DOCKERHUB_USERNAME}}
+         password: ${{secrets.DOCKERHUB_TOKEN}}
+      - name: build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/${{enc.imageName}}:latest
+      - name: Deploy the image
+        run: |
+          docker run -d -P ${{secrets.DOCKERHUB_USERNAME}}/${{enc.imageName}}:latest
+          docker ps -a
