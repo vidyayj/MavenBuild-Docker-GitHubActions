@@ -31,5 +31,5 @@ jobs:
           tags: ${{secrets.DOCKERHUB_USERNAME}}/${{env.imageName}}:latest
       - name: Deploy the image
         run: |
-          docker run -d -P ${{secrets.DOCKERHUB_USERNAME}}/${{enc.imageName}}:latest
+          docker run -d -P ${{secrets.DOCKERHUB_USERNAME}}/${{env.imageName}}:latest
           docker ps -a
